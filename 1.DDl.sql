@@ -25,8 +25,8 @@ alter databese board default character set = utf8mb4;
 --테이블 생성
 create table author(id INT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), password VARCHAR(255));// 괄호안은 컬럼명 타입 길이
 
---테이블 컬럼 조회 : 중요
-describe autuor
+--테이블 컬럼 조회 : 중요 ->describe 테이블명을 붙여야한다
+describe autuor;
 
 --테이블 컬럼 상세 조회
 show full columns from author;
