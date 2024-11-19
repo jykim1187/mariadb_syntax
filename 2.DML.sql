@@ -55,3 +55,4 @@ select * from author where password is null;
 select * from author where password is not null;
 
 
+
