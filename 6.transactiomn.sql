@@ -1,4 +1,4 @@
---author 테이븡에 post_count컬럼 추가
+--author 테이블에 post_count컬럼 추가
 alter table author add column post_count int default 0;
 
 --post에 글쓴 후에, author테이블에 post_count값에 +1을 시키는 트랜잭션 테스트
@@ -19,10 +19,10 @@ BEGIN
     END;
     start transaction;
     update author set post_count = post_count+1 where id = 3;
-    insert into post(title, contents, author_id) values('hello java', 'hello java is...',100);
+    insert into post(title, contents, author_id) values('hello java', 'hello java is...',3);
     commit;
 END//
-DELIMITER;
+DELIMITER ;
 
 --프로시저 호출
 CALL 트랜잭션테스트();

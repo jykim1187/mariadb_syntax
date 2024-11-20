@@ -12,7 +12,7 @@ select * from information_schema.key_column_usage where table_name = 'post';
 --제약조건 삭제
 alter table post drop foreign key post_ibfk_1;
 --제약조건 추가
-alter table post add constraint post_author_fk foreign key(author_id) references author(id)
+alter table post add constraint post_author_fk foreign key(author_id) references author(id);
 
 --delete, update 관련 제약조건 테스트
 --on delete cascade 테스트
@@ -29,7 +29,7 @@ alter table post add constraint post_author_fk foreign key(author_id) references
 alter table author modify column name varchar(255) default 'anounymous';
 
 --auto_increment
-alter table author modify column id bigint auto increment;
+alter table author modify column id bigint auto_increment;
 
 
 --uuid
