@@ -43,3 +43,44 @@ select a.name from (select * from author) as a;
 --select절 안에 서브쿼리
 --author의 email과 author별로 본인이 쓴 글의 개수를 출력
 -select a.email,(select count(*) from post where author_id = a.id) from author a;
+
+--없어진 기록 찾기(프로그래머스 한 번 더 해보기)
+SELECT animal_id, name from animal_outs  where animal_id not in (select animal_id from animal_ins);
+
+
+--집계함수
+select count(*) from author; -- null값은 카운터에서 제외된다.
+select sum(price) from post;
+select avg(price) from post;
+--소수점 2번째 자리까지 나오게 반올림(0쓰면 정수만 나오게 반올림)
+select round(avg(price),2) from post;
+
+--group by : 그룹화된 데이터를 하나의 행(row)처럼 취급.
+--(author_id로 그룹핑 하였으면, 그외의 칼럼을 조회하는 것은 적절하지 않다.)
+select author_id from post group by author_id
+--group by와 집계함수
+--아래 쿼리에서 *은 그룹화된 데이터내에서의 개수
+select author_id, count(*) from post group by author_id;
+select author_id, count(*), sum(price) from post group by author_id;
+
+--author의 email과 author별로 본인이 쓴 글의 개수를 출력
+select a.email,(select count(*) from post where author_id = a.id) from author a;
+--join과 group by 집계함수 활용한 글의 개수 출력 글쓴이는 다 나와야함
+
+select a.email, count(p.author_id) from author a left join post p on a.id = p.author_id group by a.id;
+
+--where 와 group by
+--연도별로 post글의 개수 출력, 연도가 null인 값인 제외
+select date_format(created_time,'%Y') as year, count(*) from post where created_time is not null group by year;
+
+--having : group by를 통해 나온 집계값에 대한 조건
+--글을 2개 이상 쓴 사람에 대한 정보조회
+select author_id from post group by author_id having count(*)>=2;
+select author_id, count(*) as count from post group by author_id having count>=2
+
+--다중열 group by
+--post에서 작성자 별로 만든 제목의 개수를 출력하시오-->그룹을 2개로 나눈 것
+select author_id, title, count(*) from post group by author_id, title;
+
+--재구매가 일어난 상품과 회원 리스트 구하기
+SELECT user_id, product_id from online_sale group by user_id, product_id having count(*)>=2 order by user_id, product_id desc;
