@@ -11,13 +11,13 @@ mysql -u root -p board < dumpfile.sql
 # 덤프파일을 github에 업로드
 
 # 리눅스에서 mariadb설치
-sudo apt-get install mariadb=server
+sudo apt-get install mariadb-server
 
 # mariadb 서버 실행
 sudo systemctl start mariadb
 
 # mariaDB 접속 :1234
-mariadb -u root -p
+sudo mariadb -u root -p
 create database board;
 
 # git 설치
